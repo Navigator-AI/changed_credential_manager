@@ -1,0 +1,188 @@
+{
+    "title": "Skew Dashboard - {{TABLE_NAME}}",
+    "panels": [
+      {
+        "id": 1,
+        "type": "barchart",
+        "title": "Skew Multi Corners ",
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "h": 20,
+          "w": 24
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "lineWidth": 1,
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "axisPlacement": "auto",
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisCenteredZero": false,
+              "hideFrom": {
+                "tooltip": false,
+                "viz": false,
+                "legend": false
+              },
+              "thresholdsStyle": {
+                "mode": "dashed"
+              }
+            },
+            "color": {
+              "mode": "palette-classic"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "0.2": {
+                    "index": 0,
+                    "text": "target_skew"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 0.2
+                }
+              ]
+            },
+            "fieldMinMax": false,
+            "unit": "ns"
+          },
+          "overrides": []
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT * FROM {{TABLE_NAME}}",
+            "refId": "A"
+          }
+        ],
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "options": {
+          "orientation": "auto",
+          "xTickLabelRotation": 30,
+          "xTickLabelSpacing": 0,
+          "showValue": "auto",
+          "stacking": "none",
+          "groupWidth": 0.7,
+          "barWidth": 0.97,
+          "barRadius": 0,
+          "fullHighlight": false,
+          "tooltip": {
+            "mode": "single",
+            "sort": "none",
+            "hideZeros": false
+          },
+          "legend": {
+            "showLegend": true,
+            "displayMode": "list",
+            "placement": "right",
+            "calcs": []
+          }
+        }
+      },
+      {
+        "id": 2,
+        "type": "table",
+        "title": "Skew Data Table ",
+        "gridPos": {
+          "x": 0,
+          "y": 20,
+          "h": 19,
+          "w": 24
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "color-text",
+                "wrapText": false
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "color": {
+              "mode": "palette-classic"
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "skew_group--delay_corner"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 320
+                }
+              ]
+            }
+          ]
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT * FROM {{TABLE_NAME}}",
+            "refId": "B"
+          }
+        ],
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "options": {
+          "showHeader": true,
+          "cellHeight": "sm",
+          "footer": {
+            "show": true,
+            "reducer": [
+              "sum"
+            ],
+            "countRows": false,
+            "fields": ""
+          },
+          "sortBy": []
+        }
+      }
+    ]
+  }

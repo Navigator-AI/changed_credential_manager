@@ -1,0 +1,110 @@
+{
+    "title": "Delay Comparison",
+    "uid": "{{DASHBOARD_UID}}",
+    "schemaVersion": 41,
+    "version": 1,
+    "editable": true,
+    "timezone": "browser",
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "CTS Delay ",
+        "type": "barchart",
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 10 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "A",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(netdelay AS DOUBLE PRECISION) AS netdelay, CAST(invdelay AS DOUBLE PRECISION) AS invdelay, CAST(bufdelay AS DOUBLE PRECISION) AS bufdelay, CAST(combodelay AS DOUBLE PRECISION) AS combodelay, CAST(seqdelay AS DOUBLE PRECISION) AS seqdelay FROM {{CTS_TABLE}} ORDER BY combodelay DESC LIMIT 50;"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "stacking": "normal",
+          "showValue": "never",
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Route Delay ",
+        "type": "barchart",
+        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 10 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "B",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(netdelay AS DOUBLE PRECISION) AS netdelay, CAST(invdelay AS DOUBLE PRECISION) AS invdelay, CAST(bufdelay AS DOUBLE PRECISION) AS bufdelay, CAST(combodelay AS DOUBLE PRECISION) AS combodelay, CAST(seqdelay AS DOUBLE PRECISION) AS seqdelay FROM {{ROUTE_TABLE}} ORDER BY combodelay DESC LIMIT 50;"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "stacking": "normal",
+          "showValue": "never",
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "CTS Table",
+        "type": "table",
+        "gridPos": { "x": 0, "y": 10, "w": 12, "h": 8 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "C",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(netdelay AS DOUBLE PRECISION) AS netdelay, CAST(invdelay AS DOUBLE PRECISION) AS invdelay, CAST(bufdelay AS DOUBLE PRECISION) AS bufdelay, CAST(combodelay AS DOUBLE PRECISION) AS combodelay, CAST(seqdelay AS DOUBLE PRECISION) AS seqdelay FROM {{CTS_TABLE}} ORDER BY combodelay DESC LIMIT 50;"
+          }
+        ],
+        "options": {
+          "showHeader": true
+        }
+      },
+      {
+        "id": 4,
+        "title": "Route Table",
+        "type": "table",
+        "gridPos": { "x": 12, "y": 10, "w": 12, "h": 8 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "D",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(netdelay AS DOUBLE PRECISION) AS netdelay, CAST(invdelay AS DOUBLE PRECISION) AS invdelay, CAST(bufdelay AS DOUBLE PRECISION) AS bufdelay, CAST(combodelay AS DOUBLE PRECISION) AS combodelay, CAST(seqdelay AS DOUBLE PRECISION) AS seqdelay FROM {{ROUTE_TABLE}} ORDER BY combodelay DESC LIMIT 50;"
+          }
+        ],
+        "options": {
+          "showHeader": true
+        }
+      }
+    ]
+  }

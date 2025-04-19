@@ -1,0 +1,110 @@
+{
+    "title": "slack Comparison",
+    "uid": "{{DASHBOARD_UID}}",
+    "schemaVersion": 41,
+    "version": 1,
+    "editable": true,
+    "timezone": "browser",
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "CTS slack ",
+        "type": "histogram",
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 10 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "A",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(slack AS DOUBLE PRECISION) AS slack FROM {{CTS_TABLE}} LIMIT 1000;"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "stacking": "normal",
+          "showValue": "never",
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Route slack ",
+        "type": "histogram",
+        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 10 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "B",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(slack AS DOUBLE PRECISION) AS slack FROM {{ROUTE_TABLE}} LIMIT 1000;"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "stacking": "normal",
+          "showValue": "never",
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "CTS Table",
+        "type": "table",
+        "gridPos": { "x": 0, "y": 10, "w": 12, "h": 8 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "C",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(slack AS DOUBLE PRECISION) AS slack FROM {{CTS_TABLE}} ORDER BY combodelay DESC LIMIT 1000;"
+          }
+        ],
+        "options": {
+          "showHeader": true
+        }
+      },
+      {
+        "id": 4,
+        "title": "Route Table",
+        "type": "table",
+        "gridPos": { "x": 12, "y": 10, "w": 12, "h": 8 },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "targets": [
+          {
+            "refId": "D",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT endpoint, CAST(slack AS DOUBLE PRECISION) AS slack FROM {{ROUTE_TABLE}} ORDER BY combodelay DESC LIMIT 1000;"
+          }
+        ],
+        "options": {
+          "showHeader": true
+        }
+      }
+    ]
+  }

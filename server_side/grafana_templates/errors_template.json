@@ -1,0 +1,115 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "links": [],
+    "panels": [
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "{{DATASOURCE_UID}}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "color-text"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "green"},
+                {"color": "red", "value": 80}
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "severity"
+              },
+              "properties": [
+                {"id": "custom.width", "value": 110}
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "error_id"
+              },
+              "properties": [
+                {"id": "custom.width", "value": 125}
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT * FROM {{TABLE_NAME}} LIMIT 100",
+            "refId": "A"
+          }
+        ],
+        "title": "Error Details - {{TABLE_NAME}}",
+        "type": "table"
+      }
+    ],
+    "schemaVersion": 41,
+    "templating": {
+      "list": [
+        {
+          "name": "ErrorType",
+          "query": "SELECT DISTINCT error_type FROM {{TABLE_NAME}}",
+          "type": "query",
+          "refresh": 1
+        }
+      ]
+    },
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "title": "Error Dashboard - {{TABLE_NAME}}",
+    "uid": "{{DASHBOARD_UID}}"
+  }

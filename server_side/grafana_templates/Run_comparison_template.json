@@ -1,0 +1,1976 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "links": [],
+    "panels": [
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 9,
+          "x": 0,
+          "y": 0
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "auto",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    *\nFROM (\n    SELECT \n        'Run {{RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'place_setup_WNS' THEN value END) AS place_setup_WNS,\n        MAX(CASE WHEN metric = 'cts_setup_WNS' THEN value END) AS cts_setup_WNS,\n        MAX(CASE WHEN metric = 'route_setup_WNS' THEN value END) AS route_setup_WNS\n    FROM {{RUN_TABLE}} \n    WHERE metric ILIKE '%WNS'\n\n    UNION ALL\n\n    SELECT \n        'Run {{NEXT_RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'place_setup_WNS' THEN value END) AS place_setup_WNS,\n        MAX(CASE WHEN metric = 'cts_setup_WNS' THEN value END) AS cts_setup_WNS,\n        MAX(CASE WHEN metric = 'route_setup_WNS' THEN value END) AS route_setup_WNS\n    FROM {{NEXT_RUN_TABLE}} \n    WHERE metric ILIKE '%WNS'\n) AS subquery;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "WNS comparison run{{RUN_NUMBER}} vs run{{NEXT_RUN_NUMBER}}",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 7,
+          "x": 9,
+          "y": 0
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "auto",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    *\nFROM (\n    SELECT \n        'Run {{RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'place_setup_TNS' THEN value END) AS place_setup_TNS,\n        MAX(CASE WHEN metric = 'cts_setup_TNS' THEN value END) AS cts_setup_TNS,\n        MAX(CASE WHEN metric = 'route_setup_TNS' THEN value END) AS route_setup_TNS\n    FROM {{RUN_TABLE}} \n    WHERE metric ILIKE '%TNS'\n\n    UNION ALL\n\n    SELECT \n        'Run {{NEXT_RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'place_setup_TNS' THEN value END) AS place_setup_TNS,\n        MAX(CASE WHEN metric = 'cts_setup_TNS' THEN value END) AS cts_setup_TNS,\n        MAX(CASE WHEN metric = 'route_setup_TNS' THEN value END) AS route_setup_TNS\n    FROM {{NEXT_RUN_TABLE}} \n    WHERE metric ILIKE '%TNS'\n) AS subquery;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "TNS comparison run{{RUN_NUMBER}} vs run{{NEXT_RUN_NUMBER}}",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 8,
+          "x": 16,
+          "y": 0
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "auto",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    *\nFROM (\n    SELECT \n        'Run {{RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'place_setup_FEPS' THEN value END) AS place_setup_FEPS,\n        MAX(CASE WHEN metric = 'cts_setup_FEPS' THEN value END) AS cts_setup_FEPS,\n        MAX(CASE WHEN metric = 'route_setup_FEPS' THEN value END) AS route_setup_FEPS\n    FROM {{RUN_TABLE}} \n    WHERE metric ILIKE '%FEPS'\n\n    UNION ALL\n\n    SELECT \n        'Run {{NEXT_RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'place_setup_FEPS' THEN value END) AS place_setup_FEPS,\n        MAX(CASE WHEN metric = 'cts_setup_FEPS' THEN value END) AS cts_setup_FEPS,\n        MAX(CASE WHEN metric = 'route_setup_FEPS' THEN value END) AS route_setup_FEPS\n    FROM {{NEXT_RUN_TABLE}} \n    WHERE metric ILIKE '%FEPS'\n) AS subquery;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "FEPS comparison run{{RUN_NUMBER}} vs run{{NEXT_RUN_NUMBER}}",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 6,
+          "x": 0,
+          "y": 10
+        },
+        "options": {
+          "displayMode": "lcd",
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "maxVizHeight": 300,
+          "minVizHeight": 16,
+          "minVizWidth": 8,
+          "namePlacement": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "sizing": "auto",
+          "valueMode": "color"
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    'Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'floorplan_density(%)' THEN value END) AS floorplan_density,\n    MAX(CASE WHEN metric = 'place_density(%)' THEN value END) AS place_density,\n    MAX(CASE WHEN metric = 'cts_density(%)' THEN value END) AS cts_density,\n    MAX(CASE WHEN metric = 'route_density(%)' THEN value END) AS route_density\nFROM \n    {{NEXT_RUN_TABLE}};",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "density across stages run{{NEXT_RUN_NUMBER}}",
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "dark-green",
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "#E24D42",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 7,
+          "x": 6,
+          "y": 10
+        },
+        "options": {
+          "displayMode": "lcd",
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "maxVizHeight": 300,
+          "minVizHeight": 16,
+          "minVizWidth": 8,
+          "namePlacement": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "sizing": "auto",
+          "valueMode": "color"
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    'Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'floorplan_density(%)' THEN value END) AS floorplan_density,\n    MAX(CASE WHEN metric = 'place_density(%)' THEN value END) AS place_density,\n    MAX(CASE WHEN metric = 'cts_density(%)' THEN value END) AS cts_density,\n    MAX(CASE WHEN metric = 'route_density(%)' THEN value END) AS route_density\nFROM \n    {{RUN_TABLE}};",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "density across stages run{{RUN_NUMBER}}",
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 11,
+          "x": 13,
+          "y": 10
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "auto",
+          "showValue": "auto",
+          "stacking": "normal",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    'place_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'place_power_Internal' THEN value END) AS power_Internal,\n    MAX(CASE WHEN metric = 'place_power_switching' THEN value END) AS power_switching,\n    MAX(CASE WHEN metric = 'place_power_leakage' THEN value END) AS power_leakage\nFROM {{RUN_POWER_TABLE}}\nWHERE metric ILIKE '%power%'\n\nUNION ALL\n\nSELECT \n    'place_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'place_power_Internal' THEN value END) AS power_Internal,\n    MAX(CASE WHEN metric = 'place_power_switching' THEN value END) AS power_switching,\n    MAX(CASE WHEN metric = 'place_power_leakage' THEN value END) AS power_leakage\nFROM {{NEXT_RUN_POWER_TABLE}}\nWHERE metric ILIKE '%power%'\n\nUNION ALL\n\nSELECT \n    'cts_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'cts_power_Internal' THEN value END) AS power_Internal,\n    MAX(CASE WHEN metric = 'cts_power_switching' THEN value END) AS power_switching,\n    MAX(CASE WHEN metric = 'cts_power_leakage' THEN value END) AS power_leakage\nFROM {{RUN_POWER_TABLE}}\nWHERE metric ILIKE '%power%'\n\nUNION ALL\n\nSELECT \n    'cts_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'cts_power_Internal' THEN value END) AS power_Internal,\n    MAX(CASE WHEN metric = 'cts_power_switching' THEN value END) AS power_switching,\n    MAX(CASE WHEN metric = 'cts_power_leakage' THEN value END) AS power_leakage\nFROM {{NEXT_RUN_POWER_TABLE}}\nWHERE metric ILIKE '%power%'\n\nUNION ALL\n\nSELECT \n    'route_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'route_power_Internal' THEN value END) AS power_Internal,\n    MAX(CASE WHEN metric = 'route_power_switching' THEN value END) AS power_switching,\n    MAX(CASE WHEN metric = 'route_power_leakage' THEN value END) AS power_leakage\nFROM {{RUN_POWER_TABLE}}\nWHERE metric ILIKE '%power%'\n\nUNION ALL\n\nSELECT \n    'route_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'route_power_Internal' THEN value END) AS power_Internal,\n    MAX(CASE WHEN metric = 'route_power_switching' THEN value END) AS power_switching,\n    MAX(CASE WHEN metric = 'route_power_leakage' THEN value END) AS power_leakage\nFROM {{NEXT_RUN_POWER_TABLE}}\nWHERE metric ILIKE '%power%';",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "power across runs {{RUN_NUMBER}} vs {{NEXT_RUN_NUMBER}}",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 89,
+              "gradientMode": "hue",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 2,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 6,
+          "x": 0,
+          "y": 19
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.6,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "horizontal",
+          "showValue": "never",
+          "stacking": "normal",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    'floorplan_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'floorplan_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'floorplan_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'floorplan_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'floorplan_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'floorplan_latch_area' THEN value END) AS latch_area\nFROM \n    {{RUN_TABLE}} \nWHERE \n    metric ILIKE '%floorplan%area%'\n\nUNION ALL\n\nSELECT \n    'place_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'place_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'place_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'place_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'place_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'place_latch_area' THEN value END) AS latch_area\nFROM \n    {{RUN_TABLE}} \nWHERE \n    metric ILIKE '%place%area%'\n\nUNION ALL\n\nSELECT \n    'cts_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'cts_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'cts_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'cts_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'cts_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'cts_latch_area' THEN value END) AS latch_area\nFROM \n    {{RUN_TABLE}}\nWHERE \n    metric ILIKE '%cts%area%'\n\nUNION ALL\n\nSELECT \n    'route_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'route_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'route_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'route_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'route_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'route_latch_area' THEN value END) AS latch_area\nFROM \n    {{RUN_TABLE}} \nWHERE \n    metric ILIKE '%route%area%';",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "area for run{{RUN_NUMBER}} across stages",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 84,
+              "gradientMode": "hue",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 2,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 7,
+          "x": 6,
+          "y": 19
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.77,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "horizontal",
+          "showValue": "never",
+          "stacking": "normal",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    'floorplan_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'floorplan_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'floorplan_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'floorplan_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'floorplan_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'floorplan_latch_area' THEN value END) AS latch_area\nFROM \n    {{NEXT_RUN_TABLE}} \nWHERE \n    metric ILIKE '%floorplan%area%'\n\nUNION ALL\n\nSELECT \n    'place_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'place_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'place_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'place_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'place_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'place_latch_area' THEN value END) AS latch_area\nFROM \n    {{NEXT_RUN_TABLE}}\nWHERE \n    metric ILIKE '%place%area%'\n\nUNION ALL\n\nSELECT \n    'cts_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'cts_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'cts_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'cts_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'cts_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'cts_latch_area' THEN value END) AS latch_area\nFROM \n    {{NEXT_RUN_TABLE}}\nWHERE \n    metric ILIKE '%cts%area%'\n\nUNION ALL\n\nSELECT \n    'route_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'route_combo_area' THEN value END) AS combinational_area,\n    MAX(CASE WHEN metric = 'route_buffer_area' THEN value END) AS buffer_area,\n    MAX(CASE WHEN metric = 'route_physical_area' THEN value END) AS physical_area,\n    MAX(CASE WHEN metric = 'route_icgs_area' THEN value END) AS icgs_area,\n    MAX(CASE WHEN metric = 'route_latch_area' THEN value END) AS latch_area\nFROM \n    {{NEXT_RUN_TABLE}} \nWHERE \n    metric ILIKE '%route%area%';",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "area for run{{NEXT_RUN_NUMBER}} across stages",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "hue",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 6,
+          "x": 13,
+          "y": 19
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "vertical",
+          "showValue": "never",
+          "stacking": "normal",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    'floorplan_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'floorplan_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'floorplan_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'floorplan_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'floorplan_flop_count' THEN value END) AS flop_count\nFROM \n    {{RUN_TABLE}} \nWHERE \n    metric ILIKE '%floorplan%count%'\n\nUNION ALL\n\nSELECT \n    'place_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'place_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'place_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'place_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'place_flop_count' THEN value END) AS flop_count\nFROM \n    {{RUN_TABLE}}\nWHERE \n    metric ILIKE '%place%count%'\n\nUNION ALL\n\nSELECT \n    'cts_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'cts_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'cts_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'cts_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'cts_flop_count' THEN value END) AS flop_count\nFROM \n    {{RUN_TABLE}}\nWHERE \n    metric ILIKE '%cts%count%'\n\nUNION ALL\n\nSELECT \n    'route_Run {{RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'route_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'route_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'route_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'route_flop_count' THEN value END) AS flop_count\nFROM \n    {{RUN_TABLE}}\nWHERE \n    metric ILIKE '%route%count%';",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "instance count for run{{RUN_NUMBER}}",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "hue",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 5,
+          "x": 19,
+          "y": 19
+        },
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "vertical",
+          "showValue": "never",
+          "stacking": "normal",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    'floorplan_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'floorplan_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'floorplan_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'floorplan_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'floorplan_flop_count' THEN value END) AS flop_count\nFROM \n    {{NEXT_RUN_TABLE}}\nWHERE \n    metric ILIKE '%floorplan%count%'\n\nUNION ALL\n\nSELECT \n    'place_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'place_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'place_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'place_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'place_flop_count' THEN value END) AS flop_count\nFROM \n    {{NEXT_RUN_TABLE}}\nWHERE \n    metric ILIKE '%place%count%'\n\nUNION ALL\n\nSELECT \n    'cts_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'cts_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'cts_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'cts_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'cts_flop_count' THEN value END) AS flop_count\nFROM \n    {{NEXT_RUN_TABLE}}\nWHERE \n    metric ILIKE '%cts%count%'\n\nUNION ALL\n\nSELECT \n    'route_Run {{NEXT_RUN_NUMBER}}' AS run,\n    MAX(CASE WHEN metric = 'route_combinational_count' THEN value END) AS combinational_count,\n    MAX(CASE WHEN metric = 'route_buffer_count' THEN value END) AS buffer_count,\n    MAX(CASE WHEN metric = 'route_latch_count' THEN value END) AS latch_count,\n    MAX(CASE WHEN metric = 'route_flop_count' THEN value END) AS flop_count\nFROM \n    {{NEXT_RUN_TABLE}}\nWHERE \n    metric ILIKE '%route%count%';",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "instance count for run{{NEXT_RUN_NUMBER}} across stages",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 50,
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "pointShape": "circle",
+              "pointSize": {
+                "fixed": 7
+              },
+              "pointStrokeWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "show": "points+lines"
+            },
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 6,
+          "x": 0,
+          "y": 29
+        },
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "mapping": "auto",
+          "series": [
+            {
+              "x": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "run_no"
+                }
+              }
+            }
+          ],
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    ROW_NUMBER() OVER () AS run_no, \n    *\nFROM (\n    SELECT \n        'Run {{RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_Hotspot(max)' THEN CAST(value AS FLOAT) END) AS floorplan_hotspot_max,\n        MAX(CASE WHEN metric = 'place_Hotspot(max)' THEN CAST(value AS FLOAT) END) AS place_hotspot_max,\n        MAX(CASE WHEN metric = 'cts_Hotspot(max)' THEN CAST(value AS FLOAT) END) AS cts_hotspot_max\n    FROM \n        {{RUN_TABLE}}\n\n    UNION ALL\n\n    SELECT \n        'Run {{NEXT_RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_Hotspot(max)' THEN CAST(value AS FLOAT) END) AS floorplan_hotspot_max,\n        MAX(CASE WHEN metric = 'place_Hotspot(max)' THEN CAST(value AS FLOAT) END) AS place_hotspot_max,\n        MAX(CASE WHEN metric = 'cts_Hotspot(max)' THEN CAST(value AS FLOAT) END) AS cts_hotspot_max\n    FROM \n        {{NEXT_RUN_TABLE}}\n) AS subquery;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "max_hotspot across runs {{RUN_NUMBER}} vs {{NEXT_RUN_NUMBER}}",
+        "type": "xychart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 50,
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "pointShape": "circle",
+              "pointSize": {
+                "fixed": 7
+              },
+              "pointStrokeWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "show": "points+lines"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 6,
+          "x": 6,
+          "y": 29
+        },
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "mapping": "auto",
+          "series": [
+            {}
+          ],
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    ROW_NUMBER() OVER () AS run_no, \n    *\nFROM (\n    SELECT \n        'Run {{RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_Hotspot(total)' THEN CAST(value AS FLOAT) END) AS floorplan_hotspot_total,\n        MAX(CASE WHEN metric = 'place_Hotspot(total)' THEN CAST(value AS FLOAT) END) AS place_hotspot_total,\n        MAX(CASE WHEN metric = 'cts_Hotspot(total)' THEN CAST(value AS FLOAT) END) AS cts_hotspot_total\n    FROM \n        {{RUN_TABLE}}\n\n    UNION ALL\n\n    SELECT \n        'Run {{NEXT_RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_Hotspot(total)' THEN CAST(value AS FLOAT) END) AS floorplan_hotspot_total,\n        MAX(CASE WHEN metric = 'place_Hotspot(total)' THEN CAST(value AS FLOAT) END) AS place_hotspot_total,\n        MAX(CASE WHEN metric = 'cts_Hotspot(total)' THEN CAST(value AS FLOAT) END) AS cts_hotspot_total\n    FROM \n        {{NEXT_RUN_TABLE}}\n) AS subquery;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "total_hotspot across runs {{RUN_NUMBER}} vs {{NEXT_RUN_NUMBER}}",
+        "type": "xychart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 50,
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "pointShape": "circle",
+              "pointSize": {
+                "fixed": 6
+              },
+              "pointStrokeWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "show": "points+lines"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 6,
+          "x": 12,
+          "y": 29
+        },
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "mapping": "auto",
+          "series": [
+            {
+              "frame": {
+                "matcher": {
+                  "id": "byIndex",
+                  "options": 0
+                }
+              }
+            }
+          ],
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    ROW_NUMBER() OVER () AS run_no, \n    *\nFROM (\n    SELECT \n        'Run {{RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_overflow(H(%))' THEN CAST(value AS FLOAT) END) AS floorplan_overflow_h,\n        MAX(CASE WHEN metric = 'place_overflow(H(%))' THEN CAST(value AS FLOAT) END) AS place_overflow_h,\n        MAX(CASE WHEN metric = 'cts_overflow(H(%))' THEN CAST(value AS FLOAT) END) AS cts_overflow_h\n    FROM \n        {{RUN_TABLE}} \n\n    UNION ALL\n\n    SELECT \n        'Run {{NEXT_RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_overflow(H(%))' THEN CAST(value AS FLOAT) END) AS floorplan_overflow_h,\n        MAX(CASE WHEN metric = 'place_overflow(H(%))' THEN CAST(value AS FLOAT) END) AS place_overflow_h,\n        MAX(CASE WHEN metric = 'cts_overflow(H(%))' THEN CAST(value AS FLOAT) END) AS cts_overflow_h\n    FROM \n        {{NEXT_RUN_TABLE}}\n) AS subquery;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "horizontal congestion across runs {{RUN_NUMBER}} vs {{NEXT_RUN_NUMBER}}(overflow(%))",
+        "type": "xychart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 50,
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "pointShape": "circle",
+              "pointSize": {
+                "fixed": 7
+              },
+              "pointStrokeWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "show": "points+lines"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 6,
+          "x": 18,
+          "y": 29
+        },
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "mapping": "auto",
+          "series": [
+            {}
+          ],
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    ROW_NUMBER() OVER () AS run_no, \n    *\nFROM (\n    SELECT \n        'Run {{RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_overflow(V(%))' THEN CAST(value AS FLOAT) END) AS floorplan_overflow_v,\n        MAX(CASE WHEN metric = 'place_overflow(V(%))' THEN CAST(value AS FLOAT) END) AS place_overflow_v,\n        MAX(CASE WHEN metric = 'cts_overflow(V(%))' THEN CAST(value AS FLOAT) END) AS cts_overflow_v\n    FROM \n        {{RUN_TABLE}} \n\n    UNION ALL\n\n    SELECT \n        'Run {{NEXT_RUN_NUMBER}}' AS run,\n        MAX(CASE WHEN metric = 'floorplan_overflow(V(%))' THEN CAST(value AS FLOAT) END) AS floorplan_overflow_v,\n        MAX(CASE WHEN metric = 'place_overflow(V(%))' THEN CAST(value AS FLOAT) END) AS place_overflow_v,\n        MAX(CASE WHEN metric = 'cts_overflow(V(%))' THEN CAST(value AS FLOAT) END) AS cts_overflow_v\n    FROM \n        {{NEXT_RUN_TABLE}}\n) AS subquery;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "vertical congestion across runs {{RUN_NUMBER}} vs {{NEXT_RUN_NUMBER}}(overflow(%))",
+        "type": "xychart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 0,
+          "y": 40
+        },
+        "options": {
+          "displayLabels": [
+            "percent"
+          ],
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT * FROM {{RUN_TABLE}} WHERE metric ILIKE '%time%';",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "runtime of run{{RUN_NUMBER}}",
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "mappings": []
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 12,
+          "y": 40
+        },
+        "options": {
+          "displayLabels": [
+            "percent"
+          ],
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "pieType": "donut",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT * FROM {{NEXT_RUN_TABLE}} WHERE metric ILIKE '%time%';",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "runtime of run{{NEXT_RUN_NUMBER}}",
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "color-text"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 32,
+          "w": 24,
+          "x": 0,
+          "y": 50
+        },
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT \n    metric,\n    MAX(CASE WHEN run = 'Run {{RUN_NUMBER}}' THEN value END) AS run{{RUN_NUMBER}}_value,\n    MAX(CASE WHEN run = 'Run {{NEXT_RUN_NUMBER}}' THEN value END) AS run{{NEXT_RUN_NUMBER}}_value\nFROM (\n    SELECT \n        metric,\n        value,\n        'Run {{RUN_NUMBER}}' AS run\n    FROM \n        {{RUN_COMPARE_TABLE}} \n\n    UNION ALL\n    \n    SELECT \n        metric,\n        value,\n        'Run {{NEXT_RUN_NUMBER}}' AS run\n    FROM \n        {{NEXT_RUN_COMPARE_TABLE}} \n) AS combined_data\nGROUP BY \n    metric\nORDER BY \n    metric;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [
+                    {
+                      "name": "*",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "run comparison data {{RUN_NUMBER}} vs {{NEXT_RUN_NUMBER}}",
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "color-text"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 82
+        },
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "lastNotNull"
+            ],
+            "show": true
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "builder",
+            "format": "table",
+            "rawSql": "SELECT * FROM {{DRC_TABLE}} LIMIT 50;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [
+                    {
+                      "name": "*",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "drc_run{{RUN_NUMBER}}",
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "${DATASOURCE_UID}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "color-text"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+   
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 82
+        },
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "lastNotNull"
+            ],
+            "show": true
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "11.6.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "${DATASOURCE_UID}"
+            },
+            "editorMode": "builder",
+            "format": "table",
+            "rawSql": "SELECT * FROM {{NEXT_DRC_TABLE}} LIMIT 50;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [
+                    {
+                      "name": "*",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "drc_run{{NEXT_RUN_NUMBER}}",
+        "type": "table"
+      }
+    ],
+    "preload": false,
+    "schemaVersion": 41,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": "1",
+            "value": "1"
+          },
+          "definition": "1",
+          "hide": 0,
+          "name": "run_number",
+          "query": "1",
+          "type": "constant"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "",
+            "value": ""
+          },
+          "hide": 0,
+          "name": "DATASOURCE_UID",
+          "query": "grafana-postgresql-datasource",
+          "type": "datasource"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "Run Comparison Dashboard",
+    "uid": "${DATASOURCE_UID}",
+    "version": 1
+  }
