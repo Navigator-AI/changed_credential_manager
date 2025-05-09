@@ -14,7 +14,7 @@
         "id": 1,
         "title": "CTS Delay ",
         "type": "barchart",
-        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 10 },
+        "gridPos": { "x": 0, "y": 0, "w": 16, "h": 14 },
         "datasource": {
           "type": "grafana-postgresql-datasource",
           "uid": "{{DATASOURCE_UID}}"
@@ -41,7 +41,7 @@
         "id": 2,
         "title": "Route Delay ",
         "type": "barchart",
-        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 10 },
+        "gridPos": { "x": 12, "y": 0, "w": 16, "h": 14 },
         "datasource": {
           "type": "grafana-postgresql-datasource",
           "uid": "{{DATASOURCE_UID}}"

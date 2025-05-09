@@ -450,13 +450,13 @@ async function processDb(
           `, [gifPath, dashInsert.rows[0].id]);
         }
 
-        if (slackToken && slackChan) {
-          await notificationService.postDashboardLinkToSlack(slackToken, slackChan, dashboardUrl, tableName, username);
-        }
+       // if (slackToken && slackChan) {
+         // await notificationService.postDashboardLinkToSlack(slackToken, slackChan, dashboardUrl, tableName, username);
+       // }
 
-        if (teamsWebhook) {
-          await notificationService.postDashboardLinkToTeams(teamsWebhook, dashboardUrl, tableName, username);
-        }
+        //if (teamsWebhook) {
+         // await notificationService.postDashboardLinkToTeams(teamsWebhook, dashboardUrl, tableName, username);
+      //  }
 
       } catch (tableError) {
         console.error(`[ERROR] Failed to process table ${tableName}:`, tableError);
@@ -609,13 +609,13 @@ async function processSingleTableDashboards(client, userId, username, dbName, ds
         `, [gifPath, dashInsert.rows[0].id]);
       }
 
-      if (slackToken && slackChan) {
-        await notificationService.postDashboardLinkToSlack(slackToken, slackChan, dashboardUrl, tableName, username);
-      }
+      // if (slackToken && slackChan) {
+      //   await notificationService.postDashboardLinkToSlack(slackToken, slackChan, dashboardUrl, tableName, username);
+      // }
 
-      if (teamsWebhook) {
-        await notificationService.postDashboardLinkToTeams(teamsWebhook, dashboardUrl, tableName, username);
-      }
+      // if (teamsWebhook) {
+      //   await notificationService.postDashboardLinkToTeams(teamsWebhook, dashboardUrl, tableName, username);
+      // }
 
     } catch (tableError) {
       console.error(`[ERROR] Failed to process table ${tableName}:`, tableError);
@@ -691,13 +691,13 @@ async function processComparisonDashboards(client, userId, username, dbName, dsU
           `, [delayGifPath, delayInsert.rows[0].id]);
         }
 
-        if (slackToken && slackChan) {
-          await notificationService.postDashboardLinkToSlack(slackToken, slackChan, delayDashboardUrl, `${tableName}-delay`, username);
-        }
+        // if (slackToken && slackChan) {
+        //   await notificationService.postDashboardLinkToSlack(slackToken, slackChan, delayDashboardUrl, `${tableName}-delay`, username);
+        // }
 
-        if (teamsWebhook) {
-          await notificationService.postDashboardLinkToTeams(teamsWebhook, delayDashboardUrl, `${tableName}-delay`, username);
-        }
+        // if (teamsWebhook) {
+        //   await notificationService.postDashboardLinkToTeams(teamsWebhook, delayDashboardUrl, `${tableName}-delay`, username);
+        // }
 
         // Process slack-compare
         const slackConfig = TEMPLATE_MAPPING.find(t => t.type === 'slack-compare');
@@ -734,13 +734,13 @@ async function processComparisonDashboards(client, userId, username, dbName, dsU
           `, [slackGifPath, slackInsert.rows[0].id]);
         }
 
-        if (slackToken && slackChan) {
-          await notificationService.postDashboardLinkToSlack(slackToken, slackChan, slackDashboardUrl, `${tableName}-slack`, username);
-        }
+        // if (slackToken && slackChan) {
+        //   await notificationService.postDashboardLinkToSlack(slackToken, slackChan, slackDashboardUrl, `${tableName}-slack`, username);
+        // }
 
-        if (teamsWebhook) {
-          await notificationService.postDashboardLinkToTeams(teamsWebhook, slackDashboardUrl, `${tableName}-slack`, username);
-        }
+        // if (teamsWebhook) {
+        //   await notificationService.postDashboardLinkToTeams(teamsWebhook, slackDashboardUrl, `${tableName}-slack`, username);
+        // }
 
       } catch (error) {
         console.error(`[ERROR] Failed to process comparison for ${runKey}:`, error);
@@ -854,13 +854,13 @@ async function processRunCompareDashboards(client, userId, username, dbName, dsU
         `, [gifPath, dashInsert.rows[0].id]);
       }
 
-      if (slackToken && slackChan) {
-        await notificationService.postDashboardLinkToSlack(slackToken, slackChan, dashboardUrl, `Run Comparison: ${pairKey}`, username);
-      }
+      // if (slackToken && slackChan) {
+      //   await notificationService.postDashboardLinkToSlack(slackToken, slackChan, dashboardUrl, `Run Comparison: ${pairKey}`, username);
+      // }
 
-      if (teamsWebhook) {
-        await notificationService.postDashboardLinkToTeams(teamsWebhook, dashboardUrl, `Run Comparison: ${pairKey}`, username);
-      }
+      // if (teamsWebhook) {
+      //   await notificationService.postDashboardLinkToTeams(teamsWebhook, dashboardUrl, `Run Comparison: ${pairKey}`, username);
+      // }
 
     } catch (error) {
       console.error(`[ERROR] Failed to process run comparison ${pairKey}:`, error);
